@@ -2,11 +2,11 @@ import React from 'react';
 import Todo from './Todo';
 
 const TodoList = (props) => {
-  const {todos,setTodos} = props;
+  const {todos,setTodos,filteredTodos} = props;
   return (
     <div className='row justify-content-center my-3'>
       <div className='col-7'>
-        {todos.map((todo)=>{
+        {filteredTodos.map((todo)=>{
          return (<Todo 
           todos={todos}
           setTodos={setTodos}
