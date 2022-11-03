@@ -10,11 +10,32 @@ function App() {
   const [status, setStatus] = useState([]);
   const [filteredTodos, setFilteredTodos] = useState([]);
 
+  useEffect(()=>{
+    getStorageTodos();
+  },[])
 
   useEffect(()=>{
     filterHandler();
+    saveLocalTodos();
     console.log("called filter Handler")
   },[todos,status])
+
+  const saveLocalTodos = () =>{
+    if(todos.length>0){
+      localStorage.setItem("todos",JSON.stringify(todos));
+    }
+    
+  }
+
+  const getStorageTodos = () =>{
+    if(localStorage.getItem("todos") === null){
+      localStorage.getItem("todos",JSON.stringify([]));
+    }else {
+     let localTodos = JSON.parse(localStorage.getItem("todos"));
+     setTodos(localTodos);
+    console.log(localTodos);
+    }
+  }
 
 
   const filterHandler = () => {
@@ -34,9 +55,10 @@ function App() {
   
 
   return (
-    <div className="container ">
-      <div className="row justify-content-center">
-        Daily Todos ......
+    <div className="container pt-5">
+      <div className="row justify-content-center ">
+        <div className="fs-2 justify-content-center row"> Daily Todos ......</div>
+       
         <div className="">
           <div className="col-12">
             <Form
